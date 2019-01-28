@@ -11,7 +11,7 @@ navigator.share = navigator.share || (function(){
 	let shareUrls = {
     	whatsapp: payload => (isDesktop ? 'https://api.whatsapp.com/send?text=' : 'whatsapp://send?text=') + payload,
     	telegram: payload => (isDesktop ? 'https://telegram.me/share/msg?url='+location.host+'&text=' : 'tg://msg?text=') + payload,
-    	facebook: (fbid, url) => !fbid ? "" : 'https://www.facebook.com/dialog/share?app_id='+fbid+'&display=popup&href='+url+'&redirect_uri='+encodeURIComponent(location.href)+'&quote=',
+    	facebook: (payload, fbid, url) => !fbid ? "" : 'https://www.facebook.com/dialog/share?app_id='+fbid+'&display=popup&href='+url+'&redirect_uri='+encodeURIComponent(location.href)+'&quote=' + payload,
     	email:    (payload, title) => 'mailto:?subject='+title+'&body='+payload,
         sms:      payload => android ? 'sms:?body='+payload : 'sms:&body='+payload
 	};
@@ -51,7 +51,7 @@ navigator.share = navigator.share || (function(){
 			payload = encodeURIComponent(payload);
 			title = encodeURIComponent(title);
 	    	this.$whatsapp.href = shareUrls.whatsapp(payload);
-	    	this.$facebook.href = shareUrls.facebook(facebookId, payloadObj.url);
+	    	this.$facebook.href = shareUrls.facebook(payload, facebookId, payloadObj.url);
 	    	this.$telegram.href = shareUrls.telegram(payload);
 	    	this.$email.href = shareUrls.email(payload, title);
 	    	this.$sms.href = shareUrls.sms(payload);
