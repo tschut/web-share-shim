@@ -13,7 +13,7 @@ navigator.share = navigator.share || (function(){
     	telegram: payload => (isDesktop ? 'https://telegram.me/share/msg?url='+location.host+'&text=' : 'tg://msg?text=') + payload,
     	facebook: (fbid, url) => !fbid ? "" : 'https://www.facebook.com/dialog/share?app_id='+fbid+'&display=popup&href='+url+'&redirect_uri='+encodeURIComponent(location.href)+'&quote=',
     	email:    (payload, title) => 'mailto:?subject='+title+'&body='+payload,
-        sms:      payload => 'sms:?body='+payload
+        sms:      payload => android ? 'sms:?body='+payload : 'sms:&body='+payload
 	};
 
 	class WebShareUI{
