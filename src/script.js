@@ -11,9 +11,9 @@ navigator.share = navigator.share || (function(){
 	let shareUrls = {
     	whatsapp: payload => (isDesktop ? 'https://api.whatsapp.com/send?text=' : 'whatsapp://send?text=') + payload,
     	telegram: payload => (isDesktop ? 'https://telegram.me/share/msg?url='+location.host+'&text=' : 'tg://msg?text=') + payload,
-    	facebook: (payload, fbid, url) => !fbid ? "" : (isDesktop ? 'https://www.facebook.com/dialog/share?app_id='+fbid+'&display=popup&href='+url+'&redirect_uri='+encodeURIComponent(location.href)+'&quote=' : 'fb-messenger://share/?message=') + payload,
+    	facebook: (fbid, url) => !fbid ? "" : 'https://www.facebook.com/dialog/share?app_id='+fbid+'&display=popup&href='+url+'&redirect_uri='+encodeURIComponent(location.href)+'&quote=',
     	email:    (payload, title) => 'mailto:?subject='+title+'&body='+payload,
-    	sms:      payload => 'sms:?body='+payload
+        sms:      payload => 'sms:?body='+payload
 	};
 
 	class WebShareUI{
